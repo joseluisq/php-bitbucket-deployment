@@ -1,6 +1,6 @@
 # PHP Bitbucket Deployment
 
-Simple PHP script to Bitbucket Deployment.
+Simple PHP script to automatic Bitbucket deployment.
 
 ### Settings
 
