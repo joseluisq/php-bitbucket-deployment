@@ -2,7 +2,7 @@
 
 Simple PHP script to Bitbucket Deployment.
 
-### Bitbucket
+### Settings
 
  1. For **private repositories** go to repository settings and add your
     server SSH key first.
