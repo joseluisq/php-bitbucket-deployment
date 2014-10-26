@@ -10,3 +10,5 @@ Simple PHP script to automatic Bitbucket deployment.
  1. Enter the URL to your deployment script. E.g. `http://example.com/deploy.php?access_token=SECRET_ACCESS_TOKEN`.
  1. Finally **Save** hook.
  
+### License
+[MIT License](http://opensource.org/licenses/MIT)
