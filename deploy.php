@@ -5,9 +5,13 @@
  *
  * Simple PHP script to Bitbucket Deployment.
  *
- * @version 1.0.0
- * @link    https://github.com/joseluisq/php-bitbucket-deployment
+ * @version   1.0.0
+ * @autor     Jose Luis Quintana <joseluisquintana.pe>
+ * @link      https://github.com/joseluisq/php-bitbucket-deployment
  */
+ 
+ // Silent alerts
+ error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 
 // Configuration
 // =============
@@ -16,8 +20,8 @@
 $username = 'username';
 $password = 'password';
 
-// Repository owner name
-$owner = $username;
+// Repository owner or team name
+$owner = 'owner or team name';
 
 // Repository name
 $repository_name = 'repository_name';
@@ -77,7 +81,7 @@ if (isset($_GET['access_token']) && !empty($_GET['access_token']) && $_GET['acce
 // $nodes = get_nodes($owner, $repository_name, $username, $password);
 // $zipfile_path = get_zipfile_path_repo($owner, $repository_name, $nodes['node']);
 // $zipfile_name = get_zipfile_repo($zipfile_path, $username, $password);
-// deployment($zipfile_name, $destination_path);
+// deployment($zipfile_name, $destination_path, $repository_name, $nodes['node']);
 
 function deployment($zipfile_name, $destination_path, $owner, $repo, $node) {
   
@@ -116,18 +120,22 @@ function unzip_archive($zipfile_name, $destination_path) {
 }
 
 function get_nodes($owner, $repo, $username, $password) {
-  $ch = curl_init("https://api.bitbucket.org/1.0/repositories/$owner/$repo/changesets?limit=1");
-  curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
-  curl_setopt($ch, CURLOPT_HEADER, 0);
-  curl_setopt($ch, CURLOPT_HTTPHEADER, array('User-Agent:Mozilla/5.0'));
-  curl_setopt($ch, CURLOPT_WRITEFUNCTION, 'callback');
-  curl_exec($ch);
-  curl_close($ch);
-  
-  $changesets = json_decode($response_callback, TRUE);
+  $curl = curl_init("https://api.bitbucket.org/1.0/repositories/$owner/$repo/changesets?limit=1");
+  curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+  curl_setopt($curl, CURLOPT_USERPWD, "$username:$password");
+  curl_setopt($curl, CURLOPT_HEADER, FALSE);
+  curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+  curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.0.3705; .NET CLR 1.1.4322)');
+  curl_setopt($curl, CURLINFO_HEADER_OUT, true);
+  $json = curl_exec($curl);
+  curl_close($curl);
+  $changesets = json_decode($json, TRUE);
+
   $node = $changesets['changesets'][0]['node'];
   $raw_node = $changesets['changesets'][0]['raw_node'];
-  
+
   return array('node' => $node, 'raw_node' => $raw_node);
 }
 
