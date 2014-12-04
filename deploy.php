@@ -39,10 +39,6 @@ $secret_access_token = 'SECRET_ACCESS_TOKEN';
 // Time limit for script execution
 $timelimit = 2000;
 
-// Response callback is a global variable.
-// Please don't remove this!
-$response_callback = '';
-
 // ====================
 // Automatic Deployment
 // ====================
@@ -156,12 +152,6 @@ function get_zipfile_repo($zipfile_path, $username, $password) {
   curl_close($ch);
   fclose($fp);
   return $filename;
-}
-
-function callback($url, $chunk) {
-  global $response_callback;
-  $response_callback.= $chunk;
-  return strlen($chunk);
 }
 
 function remove_dir($dir, $DeleteMe) {
