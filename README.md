@@ -1,6 +1,6 @@
 # PHP Bitbucket Deployment
 
-Simple PHP script to automatic Bitbucket deployment.
+> Simple PHP script to automatic Bitbucket deployment.
 
 ### Settings
 
@@ -11,4 +11,4 @@ Simple PHP script to automatic Bitbucket deployment.
  1. Finally **Save** hook.
  
 ### License
-[MIT License](http://opensource.org/licenses/MIT)
+MIT License
