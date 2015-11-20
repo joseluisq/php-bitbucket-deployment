@@ -184,3 +184,4 @@ function copy_dir($src, $dst) {
   }
   
   closedir($dir);
+}
