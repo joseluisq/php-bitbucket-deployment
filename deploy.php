@@ -6,7 +6,7 @@
  * Simple PHP script to Bitbucket Deployment.
  *
  * @version   1.0.0
- * @autor     Jose Luis Quintana <joseluisquintana.pe>
+ * @author    Jose Luis Quintana <git.io/joseluisq>
  * @link      https://github.com/joseluisq/php-bitbucket-deployment
  */
  
